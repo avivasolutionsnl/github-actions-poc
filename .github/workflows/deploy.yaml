@@ -33,7 +33,7 @@ jobs:
   deploy-production:
     name: Deploy to production
     runs-on: ubuntu-latest
-    needs: build
+    needs: deploy-test
     environment: production
 
     steps:
