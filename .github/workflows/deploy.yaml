@@ -1,0 +1,35 @@
+name: Deploy to environment
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'The environment to deploy to'
+        required: true
+        options:
+          - test
+          - acceptance
+          - production
+
+env:
+  test_EXAMPLE_VARIABLE: test variable
+  acceptance_EXAMPLE_VARIABLE: acceptance variable
+  production_EXAMPLE_VARIABLE: production variable
+
+run-name: Deploy ${{ github.ref }} to ${{ inputs.environment }} by @${{ github.actor }}
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Print environment specific variable
+        run: |
+          echo "${{ inputs.environment }}_EXAMPLE_VARIABLE: $${{ inputs.environment }}_EXAMPLE_VARIABLE"
+      # Workflow permissions need to be set to 'Read and write' to be able to push
+      - name: Deploy frontend 🚀
+        run: |
+          git checkout -B ${{ inputs.environment }}
+          git push origin ${{ inputs.environment }}  --force
