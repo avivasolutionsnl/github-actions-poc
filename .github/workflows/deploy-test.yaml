@@ -1,0 +1,31 @@
+name: Deploy to test
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+jobs:
+  deploy-test:
+    name: Deploy to test
+    runs-on: ubuntu-latest
+    environment: test
+    permissions:      
+      contents: write  
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Print environment specific variable
+        run: |
+          echo "EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE}}"
+      # Workflow permissions need to be set to 'Read and write' to be able to push
+      - name: Deploy frontend 🚀
+        run: |
+          git checkout -B ${{ vars.ENVIRONMENT_STAGE  }}
+          git push origin ${{ vars.ENVIRONMENT_STAGE  }}  --force
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
