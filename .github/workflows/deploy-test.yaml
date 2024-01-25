@@ -9,8 +9,8 @@ jobs:
     name: Deploy to test
     runs-on: ubuntu-latest
     environment: test
-    permissions:      
-      contents: write  
+    permissions:
+      contents: write
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
@@ -24,8 +24,3 @@ jobs:
         run: |
           git checkout -B ${{ vars.ENVIRONMENT_STAGE  }}
           git push origin ${{ vars.ENVIRONMENT_STAGE  }}  --force
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The triggering workflow failed'
