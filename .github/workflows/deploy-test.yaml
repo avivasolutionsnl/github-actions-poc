@@ -4,6 +4,7 @@ on:
     workflows: [CI]
     types: [completed]
 
+run-name: ${{ github.event.workflow_run.name }}
 jobs:
   deploy-test:
     name: Deploy to test
