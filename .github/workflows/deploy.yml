@@ -2,6 +2,10 @@ name: Deploy
 
 on:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 
 env:
   EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE }}
@@ -12,6 +16,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-22.04
+    environment: ${{ input.environment }}
     permissions:
       contents: write
     steps:

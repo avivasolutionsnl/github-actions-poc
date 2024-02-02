@@ -6,12 +6,10 @@ on:
       - main
 
 jobs:
-  deploy-acc:
-    name: Deploy to Acc
-    environment: acceptance
+  deploy:
+    strategy:
+      matrix:
+        environment: [Acceptance, Production]
     uses: ./.github/workflows/deploy.yaml
-
-  deploy-prd:
-    name: Deploy to Prd
-    environment: production
-    uses: ./.github/workflows/deploy.yaml
+    with:
+      environment: ${{ matrix.environment }}
