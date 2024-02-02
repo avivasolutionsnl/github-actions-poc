@@ -1,0 +1,20 @@
+name: Deploy to Acc
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version tag e.g. v1.0.0'
+        required: true
+
+jobs:
+  deploy-acc:
+    name: Deploy
+    permissions:
+      contents: write
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      environment: Production
+      ref: ref/tags/${{ inputs.version }}
+      run-job: ${{ startsWith(version, 'v') }}
+    secrets: inherit

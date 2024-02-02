@@ -5,7 +5,12 @@ on:
     inputs:
       environment:
         required: true
+        type: environment
+      ref:
+        required: true
         type: string
+      run-job:
+        type: boolean
 
 env:
   EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE }}
@@ -17,14 +22,18 @@ jobs:
     name: ${{ inputs.environment }}
     runs-on: ubuntu-22.04
     environment: ${{ inputs.environment }}
+
+    if: ${{ inputs.run-job }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
       - name: Print environment specific variable
         run: |
           echo "EXAMPLE_VARIABLE: $EXAMPLE_VARIABLE. SECRET: $SECRET_VARIABLE"
       # Workflow permissions need to be set to 'Read and write' to be able to push
       - name: Deploy frontend 🚀
         run: |
-          git checkout -B ${{ secrets.SECRET_VARIABLE }}
-          git push origin ${{ secrets.SECRET_VARIABLE }} --force
+          git checkout -B $SECRET_VARIABLE
+          git push origin $SECRET_VARIABLE --force
