@@ -10,6 +10,6 @@ jobs:
     strategy:
       matrix:
         environment: [Acceptance, Production]
-    uses: ./.github/workflows/deploy.yaml@main
+    uses: ./.github/workflows/deploy.yaml
     with:
       environment: ${{ matrix.environment }}
