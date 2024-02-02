@@ -1,0 +1,43 @@
+name: Deploy release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  deploy-acc:
+    name: Deploy to Acc
+    runs-on: ubuntu-22.04
+    environment: acceptance
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Print environment specific variable
+        run: |
+          echo "EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE}}"
+      # Workflow permissions need to be set to 'Read and write' to be able to push
+      - name: Deploy frontend 🚀
+        run: |
+          git checkout -B ${{ vars.ENVIRONMENT_STAGE  }}
+          git push origin ${{ vars.ENVIRONMENT_STAGE  }}  --force
+
+  deploy-prd:
+    name: Deploy to Prd
+    runs-on: ubuntu-22.04
+    environment: production
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Print environment specific variable
+        run: |
+          echo "EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE}}"
+      # Workflow permissions need to be set to 'Read and write' to be able to push
+      - name: Deploy frontend 🚀
+        run: |
+          git checkout -B ${{ vars.ENVIRONMENT_STAGE  }}
+          git push origin ${{ vars.ENVIRONMENT_STAGE  }}  --force
