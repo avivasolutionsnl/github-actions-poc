@@ -26,5 +26,5 @@ jobs:
       # Workflow permissions need to be set to 'Read and write' to be able to push
       - name: Deploy frontend 🚀
         run: |
-          git checkout -B $ENVIRONMENT_STAGE
-          git push origin $ENVIRONMENT_STAGE  --force
+          git checkout -B $ENVIRONMENT
+          git push origin $ENVIRONMENT  --force
