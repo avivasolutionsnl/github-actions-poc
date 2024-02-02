@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  workflow_call:
+
+env:
+  EXAMPLE_VARIABLE: ${{ vars.EXAMPLE_VARIABLE }}
+  ENVIRONMENT: ${{ vars.ENVIRONMENT_STAGE }}
+  SECRET_VARIABLE: ${{ secrets.SECRET_VARIABLE }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Print environment specific variable
+        run: |
+          echo "EXAMPLE_VARIABLE: $EXAMPLE_VARIABLE. SECRET: $SECRET_VARIABLE"
+      # Workflow permissions need to be set to 'Read and write' to be able to push
+      - name: Deploy frontend 🚀
+        run: |
+          git checkout -B $ENVIRONMENT_STAGE
+          git push origin $ENVIRONMENT_STAGE  --force
