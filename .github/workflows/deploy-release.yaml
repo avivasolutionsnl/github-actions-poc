@@ -10,7 +10,7 @@ jobs:
     name: Deploy
     permissions:
       contents: write
-    uses: ./.github/workflows/deploy.yaml
+    uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment: Acceptance
 
@@ -18,6 +18,6 @@ jobs:
     name: Deploy
     permissions:
       contents: write
-    uses: ./.github/workflows/deploy.yaml
+    uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment: Production
