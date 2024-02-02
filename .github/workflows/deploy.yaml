@@ -16,7 +16,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-22.04
-    environment: ${{ input.environment }}
+    environment: ${{ inputs.environment }}
     permissions:
       contents: write
     steps:
