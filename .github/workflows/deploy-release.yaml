@@ -6,13 +6,18 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-acc:
     name: Deploy
-    strategy:
-      matrix:
-        environment: [Acceptance, Production]
     permissions:
       contents: write
     uses: ./.github/workflows/deploy.yaml
     with:
-      environment: ${{ matrix.environment }}
+      environment: Acceptance
+
+  deploy-acc:
+    name: Deploy
+    permissions:
+      contents: write
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      environment: Production
