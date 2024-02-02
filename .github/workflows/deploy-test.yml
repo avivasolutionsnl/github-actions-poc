@@ -12,7 +12,7 @@ jobs:
       contents: write
     uses: ./.github/workflows/reusable-deploy.yml
     with:
-      environment: Test
+      environment: test
       ref: ${{ github.ref }}
       run-job: ${{ github.event.workflow_run.conclusion == 'success' }}
     secrets: inherit

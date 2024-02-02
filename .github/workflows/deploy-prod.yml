@@ -1,4 +1,4 @@
-name: Deploy to Acc
+name: Deploy to Prd
 
 on:
   workflow_dispatch:
@@ -8,13 +8,13 @@ on:
         required: true
 
 jobs:
-  deploy-acc:
+  deploy-prd:
     name: Deploy
     permissions:
       contents: write
     uses: ./.github/workflows/reusable-deploy.yml
     with:
-      environment: Production
+      environment: production
       ref: ref/tags/${{ inputs.version }}
       run-job: ${{ startsWith(version, 'v') }}
     secrets: inherit

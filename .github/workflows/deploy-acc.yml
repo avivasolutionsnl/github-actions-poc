@@ -14,7 +14,7 @@ jobs:
       contents: write
     uses: ./.github/workflows/reusable-deploy.yml
     with:
-      environment: Acceptance
+      environment: acceptance
       ref: ref/tags/${{ inputs.version }}
       run-job: ${{ startsWith(version, 'v') }}
     secrets: inherit
