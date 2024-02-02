@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy (reusable)
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ env:
 
 jobs:
   deploy:
-    name: Deploy
+    name: ${{ inputs.environment }}
     runs-on: ubuntu-22.04
     environment: ${{ inputs.environment }}
     steps:
