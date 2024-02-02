@@ -1,4 +1,4 @@
-name: "(reusable: deploy)"
+name: "一(reusable: deploy)"
 
 on:
   workflow_call:
