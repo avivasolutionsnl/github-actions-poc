@@ -16,5 +16,5 @@ jobs:
     with:
       environment: Acceptance
       ref: ref/tags/${{ inputs.version }}
-      run-job: ${{ startsWith(version, 'v') }}
+      run-job: ${{ startsWith(inputs.version, 'v') }}
     secrets: inherit
